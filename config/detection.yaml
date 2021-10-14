@@ -1,7 +1,9 @@
 detect: {
   frame_id: "velodyne",
+  #frame_id: "1",
 
-  sub_pc_topic: "/kitti/points_raw",
+  sub_pc_topic: "/velodyne_points",
+  #sub_pc_topic: "/lidar3D",
   sub_pc_queue_size: 1,
 
   pub_pc_ground_topic: "/segmenter/points_ground",

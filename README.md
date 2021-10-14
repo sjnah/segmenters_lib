@@ -20,39 +20,18 @@
     
     # git clone perception libraries, segmenters_lib and its dependencies
     $ cd $(CATKIN_WS)/src/perception/libs
-    $ git clone https://github.com/LidarPerception/roi_filters_lib.git roi_filters
+    $ git clone https://github.com/sjnah/roi_filters_lib.git roi_filters
     $ git clone https://github.com/LidarPerception/object_builders_lib.git object_builders
-    $ git clone https://github.com/LidarPerception/segmenters_lib.git segmenters
+    $ git clone https://github.com/sjnah/segmenters_lib.git segmenters
     
     # build your ros workspace for our segmentation-based detection demo
     # uncomment add_subdirectory() in src/perception/libs/segmenters/CMakeLists.txt, git diff as following:
-    -#add_subdirectory(example)
-    +add_subdirectory(example)
+	#-#add_subdirectory(example)
+	#+add_subdirectory(example)
     $ cd $(CATKIN_WS)
-    $ catkin build -DCMAKE_BUILD_TYPE=Release
-    ```
-2. Run demo under [KiTTI raw dataset](http://www.cvlibs.net/datasets/kitti/raw_data.php) using [kitti_ros](https://github.com/LidarPerception/kitti_ros.git)'s replayer.
-    ```bash
-    $ cd $(CATKIN_WS)/src
-    $ git clone https://github.com/LidarPerception/kitti_ros.git
-    # build your ros workspace for our segmentation-based detection demo
-    $ cd ..
-    $ catkin build -DCMAKE_BUILD_TYPE=Release
-    ```
-    + **Terminal 1**: KiTTI raw dataset replay, [more tutorials](https://github.com/LidarPerception/kitti_ros#how-to-use).
-        ```bash
-        $ cd $(CATKIN_WS)
-        $ source devel/setup.bash
-        # change Mode for Keyboard Listening Device
-        $ sudo chmod 777 /dev/input/event3
-        # launch kitti_ros's kitti_player for frame-by-frame algorithm testing
-        $ roslaunch kitti_ros kitti_player.launch
-        ```
-    + **Terminal 2**: launch **Seg-based Detector** demo.
-        ```bash
-        $ cd $(CATKIN_WS)
-        $ source devel/setup.bash
-        $ roslaunch segmenters_lib demo.launch
+    $ catkin_make -DCMAKE_BUILD_TYPE=Release
+        
+	$ roslaunch segmenters_lib demo.launch
         ```
 3. Follow the [demo example](./example) to use our LiDAR segmenters library.
     + Cascadingly use **roi_filter**, **ground_remover** and **non_ground_segmenter** for Point Cloud perception, like our **Seg-based Detector**: [detection_node](./example/detection_node.cpp).
